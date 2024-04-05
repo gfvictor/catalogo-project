@@ -31,4 +31,8 @@ class PageController extends Controller
         auth()->logout();
         return redirect('/')->with('success', 'Logout bem sucedido!');
     }
+    public function overview()
+    {
+        return (auth()->check()) ? view('/overview') : redirect('/')->with('failure');
+    }
 }

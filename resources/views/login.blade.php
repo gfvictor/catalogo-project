@@ -31,9 +31,9 @@
                         </a>
                     </div>
                     <div class="m-3">
-                        <a href="#" title="Quicktoolz On Facebook"
+                        <a href="/overview" title="Quicktoolz On Facebook"
                            class="md:w-32 bg-white tracking-wide text-gray-800 font-bold rounded border-2 border-orange-500 hover:border-orange-500 hover:bg-orange-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
-                            <span class="mx-auto">Licensas</span>
+                            <span class="mx-auto">Demo</span>
                         </a>
                     </div>
                 </div>
