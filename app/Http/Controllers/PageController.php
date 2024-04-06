@@ -10,9 +10,13 @@ class PageController extends Controller
     {
         return (auth()->check()) ? view('login') : view( 'homepage');
     }
-    public function registerPage()
+    public function showRegister()
     {
         return view("registerPage");
+    }
+    public function showCreateForm()
+    {
+        return (auth()->check()) ? 'Redirect to Create Form' : view('homepage')->with('failure', 'Faça o login!');
     }
     public function login(Request $request)
     {

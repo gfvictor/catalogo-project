@@ -17,7 +17,7 @@ class guestUser
         {
             if (Auth::guard($guard)->check())
             {
-                return redirect('/')->with('failure', 'Somente convidados.');
+                return redirect('/')->with('failure', 'Você já está logado!');
             }
         }
 

@@ -38,8 +38,10 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="bg-purple-600 mt-12 py-3 px-6 rounded-2xl hover:bg-purple-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold
+            <div class="flex justify-center">
+            <button type="submit" class="bg-purple-500 mt-12 py-3 px-6 rounded-2xl hover:bg-purple-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold
                     mb-2">Logout</button>
+            </div>
         </div>
     </div>
 </form>
