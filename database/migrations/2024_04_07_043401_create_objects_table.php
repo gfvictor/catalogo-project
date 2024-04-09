@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('containers', function (Blueprint $table) {
-            $table->id()->primary()->autoIncrement();
+        Schema::create('objects', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('object_name');
+            $table->string('object_tag');
+            $table->integer('quantity');
             $table->string('container_name');
             $table->string('container_type');
             $table->string('container_room');
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('containers');
+        Schema::dropIfExists('objects');
     }
 };

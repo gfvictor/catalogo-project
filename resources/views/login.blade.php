@@ -31,14 +31,16 @@
                         </a>
                     </div>
                     <div class="m-3">
-                        <a href="/overview" title="Quicktoolz On Facebook"
+                        <a href="/overview/{{auth()->user()->id}}" title="Quicktoolz On Facebook"
                            class="md:w-32 bg-white tracking-wide text-gray-800 font-bold rounded border-2 border-orange-500 hover:border-orange-500 hover:bg-orange-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+                            @csrf
                             <span class="mx-auto">Demo</span>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="flex justify-center">
+                @csrf
             <button type="submit" class="bg-purple-500 mt-12 py-3 px-6 rounded-2xl hover:bg-purple-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold
                     mb-2">Logout</button>
             </div>
