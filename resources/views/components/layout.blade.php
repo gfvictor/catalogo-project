@@ -9,12 +9,12 @@
 </head>
 <body>
     @if(session()->has('success'))
-        <div>
-            <div class="text-center bg-green-50 border border-green-500 text-green-500 px-6 py-4" role="alert">{{session('success')}}</div>
+        <div class="flex justify-center items-center">
+            <div class="bg-green-50 border border-green-500 text-green-500 px-6 py-4" role="alert">{{session('success')}}</div>
         </div>
     @endif
     @if(session()->has('failure'))
-        <div>
+        <div class="flex justify-center items-center">
             <div class="text-center bg-red-50 border border-red-500 text-red-500 px-6 py-4" role="alert">{{session('failure')}}</div>
         </div>
     @endif
