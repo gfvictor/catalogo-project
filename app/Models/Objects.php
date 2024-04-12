@@ -4,20 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Objects extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'object_name',
-        'object_tag',
-        'quantity',
-        'container_name',
-        'container_type',
-        'container_room',
-        'user_id'
-    ];
-    public function user()
+    protected $guarded = [];
+    public function user(): Relation
     {
         return $this->belongsTo(User::class,'user_id');
     }
