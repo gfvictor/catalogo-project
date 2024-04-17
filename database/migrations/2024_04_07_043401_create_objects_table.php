@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('objects', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->string('object_name');
-            $table->string('object_tag');
-            $table->integer('quantity');
-            $table->string('container_name');
+            $table->string('object_name')->index();
+            $table->string('object_image')->nullable();
+            $table->string('object_tag')->index();
+            $table->unsignedBigInteger('quantity');
+            $table->string('container_image')->nullable();
             $table->string('container_type');
-            $table->string('container_room');
+            $table->string('container_room')->index();
             $table->timestamps();
         });
     }

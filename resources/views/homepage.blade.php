@@ -51,8 +51,6 @@
                     mb-2">Login</button>
                         <div class="flex justify-between mt-4">
                             <span class="text-sm ml-2 hover:text-purple-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all">Esqueceu a Senha?</span>
-
-                            <a href="#" class="text-sm ml-2 hover:text-purple-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all">Ainda não tem uma conta?</a>
                         </div>
 
                     </form>
