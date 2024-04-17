@@ -2,54 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\objectsRequest;
 use App\Models\Objects;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ObjectsController extends Controller
 {
-    public function validateInput(Request $request): array
+    public function createObject(objectsRequest $request): RedirectResponse
     {
-        return $request->validate([
-            'object_name' => 'required|min:3|max:30',
-            'object_tag' => 'required|max:15',
-            'quantity' => 'required|integer',
-            'container_name' => 'required|integer',
-            'container_type' => 'required',
-            'container_room' => 'required',
-        ]);
-    }
-    public function createObject(Request $request): RedirectResponse
-    {
-        $validate = $this->validateInput($request);
-
-        Objects::create($validate + ['user_id' => auth()->id()]);
+        Objects::create($request->validated() + ['user_id' => auth()->id()]);
 
         return redirect('/overview/'.auth()->id())->with('success', 'Objeto Adicionado com Sucesso!');
     }
+
     public function deleteObject($id): RedirectResponse
     {
         $object = Objects::find($id);
-
-        if ($object->user_id != auth()->id()) {
-            return redirect('/overview/'.auth()->id())->with('error', 'Você não tem permissão para excluir este objeto!');
-        }
+        Gate::authorize('delete', $object);
 
         $object->delete();
 
         return redirect('/overview/'.auth()->id())->with('success', 'Objeto Excluído com Sucesso!');
     }
-    public function updateObject(Request $request, $id): RedirectResponse
+
+    public function updateObject(objectsRequest $request, $id): RedirectResponse
     {
+
         $object = Objects::find($id);
+        Gate::authorize('update', $object);
 
-        if ($object->user_id != auth()->id()) {
-            return redirect('/overview/'.auth()->id())->with('error', 'Você não tem permissão para excluir este objeto!');
-        }
-
-        $object->update($this->validateInput($request));
+        $object->update($request->validated());
 
         return redirect('/overview/'.auth()->id())->with('success', 'Objeto Alterado com Sucesso!');
+    }
+
+    public function searchObject(Request $request): View
+    {
+        $term = $request->input('search');
+
+        if (empty($term)) {
+            abort(403, 'Busca vazia!');
+        }
+
+        $object = Objects::search($term)->where('user_id', auth()->id())->get();
+
+        if ($object->isEmpty()) {
+            abort(403, 'Objeto não encontrado!');
+        }
+
+        return view('search-results', ['objects' => $object, 'term' => $term]);
     }
 }
