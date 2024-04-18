@@ -18,7 +18,7 @@ Route::post('/register/complete', [UserController::class, 'register']);
 
 Route::group(['prefix' => 'objects', 'middleware' => 'logged'], function () {
     Route::post('/create', [ObjectsController::class, 'createObject'])->name('create');
-    Route::get('/search', [ObjectsController::class, 'searchObject'])->name('search');
+    Route::get('/search/{term}', [ObjectsController::class, 'searchObject'])->name('search');
     Route::put('/update/{id}', [ObjectsController::class, 'updateObject'])->name('update');
     Route::delete('/delete/{id}', [ObjectsController::class, 'deleteObject'])->name('delete');
 });

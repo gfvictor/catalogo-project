@@ -2,9 +2,9 @@
     @csrf
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <h1 class="text-3xl mt-12 text-center mb-2">Exibindo Resultados para:</h1>
-        <p class="text-2xl text-purple-500 text-center mt-4 mb-4"><strong>{{ucfirst($term)}}</strong></p>
+        <p class="text-2xl text-purple-500 text-center mt-4 mb-4"><strong>"{{ucfirst($term)}}"</strong></p>
     <div class="max-w-md mx-auto">
-        <form action="{{route('search')}}" method="GET">
+        <form action="{{route('search', 'term')}}" method="GET">
             <input class="w-full shadow-md text-center bg-gray-100 placeholder-gray-400 text-gray-500 px-4 py-3 mt-6 mb-1 rounded-2xl border-0 focus:outline-none" type="search" name="search"
                    placeholder="O que você procura?">
             <div class="flex justify-center">
