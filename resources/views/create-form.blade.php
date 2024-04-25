@@ -43,7 +43,7 @@
                 </div>
             </form>
 
-            <form action="/overview/{{auth()->user()->id}}" method="POST">
+            <form action="{{route('overview', ['id' => auth()->user()->id])}}" method="POST">
                 @csrf
                 @method('GET')
                 <div class="container flex justify-center items-center">

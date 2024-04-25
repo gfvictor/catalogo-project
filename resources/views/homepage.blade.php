@@ -20,7 +20,7 @@
                 <h1 class="text-white font-bold text-4xl font-sans">Meu App</h1>
                 <p class="text-white mt-1">Descrição do app vai aqui</p>
                 <div class="flex justify-center lg:justify-start mt-6">
-                    <a href="/register" class="hover:bg-purple-700 hover:text-white hover:-translate-y-1 transition-all duration-500 bg-white
+                    <a href="{{route('registering')}}" class="hover:bg-purple-700 hover:text-white hover:-translate-y-1 transition-all duration-500 bg-white
                     text-purple-800 mt-4 px-4 py-2 rounded-2xl font-bold mb-2">Registre-se</a>
                     @csrf
                 </div>
@@ -29,7 +29,6 @@
         <div class="flex w-full lg:w-1/2 justify-center items-center bg-white space-y-8">
             <div class="w-full px-8 md:px-32 lg:px-24">
                 @auth
-
                 @else
                     <form action="/login" method="POST" class="bg-white rounded-md shadow-2xl p-5">
                         @csrf
