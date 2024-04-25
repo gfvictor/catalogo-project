@@ -3,54 +3,68 @@
 namespace App\Http\Controllers;
 
 use App\Models\Objects;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class PageController extends Controller
 {
     public function showHomepage(): View
     {
-        return (auth()->check()) ? view('login') : view('homepage');
+        return (Auth::check())
+            ? view('login')
+            : view('homepage');
     }
 
     public function showRegister(): View
     {
-        return view("registerPage");
+        return view("register-page");
     }
 
-    public function showCreateForm(): View
+    public function showCreateForm(): View|HttpException
     {
-        return (auth()->check()) ? view('create-form') : view('homepage')->with('failure', 'Faça o login!');
+        return (Auth::check())
+            ? view('create-form')
+            : abort(401, 'Faca o login!');
     }
 
-    public function showEditForm(Objects $object_id): View
+    public function showEditForm(Objects $id): View|HttpException
     {
-        return (auth()->check() ? view('edit-form', ['object' => $object_id]) : view('homepage')->with('failure', 'Faça o login!'));
+        return (Auth::check() && $id->user_id === Auth::id())
+            ? view('edit-form', ['object' => $id])
+            : abort(403, 'Você não tem permissão!');
     }
 
-    public function login(Request $request): RedirectResponse|string
+    public function login(Request $request): RedirectResponse|HttpException
     {
         $userInput = $request->validate([
             'loginusername' => 'required',
             'loginpassword' => 'required'
         ]);
 
-        return (auth()->attempt([
+        if (Auth::attempt([
             'username' => $userInput['loginusername'],
             'password' => $userInput['loginpassword']
-        ])) && $request->session()->regenerate() ? redirect('/')->with('success', 'Login bem sucedido!') : 'Login inválido!';
+        ])) {
+            $request->session()->regenerate();
+            return redirect('/')->with('success', 'Login bem sucedido!');
+        }
+
+        abort(401, 'Login Inválido!');
     }
 
     public function logout(): RedirectResponse
     {
-        auth()->logout();
+        Auth::logout();
         return redirect('/')->with('success', 'Logout bem sucedido!');
     }
 
-    public function overview(): View|RedirectResponse
+    public function overview(): View|HttpException
     {
-        return (auth()->check()) ? view('/overview', ['objects' => Objects::where('user_id', auth()->id())->get()]) : redirect('/')->with('failure', 'Você não tem permissão.');
+        return (Auth::check())
+            ? view('/overview', ['objects' => Objects::where('user_id', Auth::id())->paginate(10)])
+            : abort(403, 'Você não tem permissão.');
     }
 }
