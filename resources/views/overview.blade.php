@@ -2,7 +2,7 @@
     @csrf
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <div class="max-w-md mx-auto">
-        <h1 class="text-3xl mt-12 text-center mb-2">Bem-vindo(a), <span class="text-purple-500"><strong>{{ucfirst(auth()->user()->name)}}</strong></span>!</h1>
+        <h1 class="text-3xl mt-12 text-center mb-2 text-gray-500">Seus Objetos Registrados:</h1>
             <form action="{{route('search', 'term')}}" method="GET">
                 <input class="w-full shadow-md text-center bg-gray-100 placeholder-gray-400 text-gray-500 px-4 py-3 mt-6 mb-4 rounded-2xl border-0 focus:outline-none" type="search" name="search"
                        placeholder="O que você procura?">

@@ -7,6 +7,21 @@
     @vite('resources/css/app.css')
     <title>Catalogo | APP</title>
 </head>
+<header>
+    @auth()
+    <div class="flex py-4 px-4 bg-gray-100 border border-gray-300">
+        <div>
+            <p>Bem vindo(a), <span class=" text-purple-500"><strong>{{auth()->user()->name}}</strong></span></p>
+        </div>
+    </div>
+    @else
+    <div class="flex py-4 px-4 bg-gray-100 border border-gray-300 text-purple-500">
+        <div>
+        <strong>Login <span class="text-gray-400">ou</span> Registre-se</strong>
+        </div>
+    </div>
+    @endauth
+</header>
 <body>
     @if(session()->has('success'))
         <div class="flex justify-center items-center">
